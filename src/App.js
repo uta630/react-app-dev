@@ -26,6 +26,10 @@ function App() {
       {label}
     </div>
   );
+
+  // トランスパイルはbabelによって行われる
+  // トランスパイルされた結果は下記ページから確認できる
+  // https://babeljs.io/repl
 }
 
 export default App;
