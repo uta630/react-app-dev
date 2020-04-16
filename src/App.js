@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // props
 // 属性データを元に参照できるデータのこと
@@ -8,7 +9,7 @@ const App = () => {
   const profiles = [
     { name: "たろう", age: 10 },
     { name: "はなこ", age: 5  },
-    { name: "名無し" },
+    { name: "名無し", age: 1 },
   ]
 
   return (
@@ -33,9 +34,13 @@ const User = (props) => {
   return <p>I am {props.name}, and {props.age} years old.</p>
 }
 
-// コンポーネントにはデフォルト値を設定できる
-User.defaultProps = {
-  age: 1
+// コンポーネントに与えるpropsに型を設定できる
+// 入力されるデータに不具合がないか、これでチェックできる
+// -> 「数値が欲しいのに文字列が来ている」などをコンポーネントで検知できる
+// また、「isRequired」を付与することで必須の属性チェックができる
+User.propTypes = {
+  name: PropTypes.string,
+  age: PropTypes.number.isRequired
 }
 
 export default App;
