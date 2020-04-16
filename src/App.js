@@ -1,46 +1,41 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-// props
-// 属性データを元に参照できるデータのこと
-// 数値・文字列・配列・オブジェクトなんでも使える
+// propsは変更できない値（immutable）
+// steteは変更できる値（mutable）
+// propsは親から子のコンポーネントに渡される
+// stateはコンポーネントの内部でのみ使用される
 
-const App = () => {
-  const profiles = [
-    { name: "たろう", age: 10 },
-    { name: "はなこ", age: 5  },
-    { name: "名無し", age: 1 },
-  ]
+// stateはclassコンポーネントで使用できる
+// [this.state = {...}}] として直接変更することはできない
+// 変更時にはsetState({})で対象のstateを変更する
+// stateを変更するとrenderが実行される（ここでは+/-のクリックイベントで発生）
+// この時、変更された値（count）だけ書き換えられる（jsx）
 
-  return (
-    <div>
-      {
-        // ループ処理にはkeyが必要になる
-        // reactはバーチャルdomというものがある
-        // これは、どのdomの記述が変更されたかを管理し、変更点のみ反映してくれる
-        // この管理にkeyが利用されているため必要
-        profiles.map((profile, index) => {
-          return <User name={profile.name} age={profile.age} key={index} />
-        })
-      }
-    </div>
-  )
-}
+const App = () => (<Counter></Counter>);
 
-// Userを作成（タグ/コンポーネント）
-// タグ記述時に付与される属性をpropsで参照する
-const User = (props) => {
-  // 以下の形で参照し、出力する
-  return <p>I am {props.name}, and {props.age} years old.</p>
-}
+class Counter extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { count: 0 }
+  }
 
-// コンポーネントに与えるpropsに型を設定できる
-// 入力されるデータに不具合がないか、これでチェックできる
-// -> 「数値が欲しいのに文字列が来ている」などをコンポーネントで検知できる
-// また、「isRequired」を付与することで必須の属性チェックができる
-User.propTypes = {
-  name: PropTypes.string,
-  age: PropTypes.number.isRequired
+  handlePlusBtn = () => {
+    this.setState({count: this.state.count+1})
+  }
+
+  handleMinusBtn = () => {
+    this.setState({count: this.state.count-1})
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <div>count: { this.state.count }</div>
+        <button onClick={this.handlePlusBtn}>+1</button>
+        <button onClick={this.handleMinusBtn}>-1</button>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
