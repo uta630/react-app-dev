@@ -1,20 +1,13 @@
-import React, { Component } from 'react';
-// import logo from './logo.svg';
-// import './App.css';
+import React from 'react';
+// 上記Reactはどこにも記載されていないのでいらないように見えるが、
+// jsxをトランスパイルする時には必須
 
-// function App() {
-//   return (
-//     <div><h1>Hello world</h1></div>
-//   );
-// }
-class App extends Component {
-  render() {
-    return React.createElement(
-      "div",
-      null,
-      "Hello, world!"
-    )
-  }
+function App() {
+  // 文字列の変数化した場合、{変数名}でjsxに挿入できる
+  const text = "Hello, world!!!";
+  // jsx構文を変数に記述できる
+  const dom =<h1>{text}</h1>;
+  return dom;
 }
 
 export default App;
