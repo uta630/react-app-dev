@@ -11,9 +11,9 @@ const initialState = { value: 0 }
 // 関数の中ではactionの値に合わせて処理を記述する
 export default (state = initialState, action) => {
     switch(action.type) {
-        case 'INCREMENT':
+        case INCREMENT:
             return { value: state.valur + 1 }
-        case 'DECREMENT':
+        case DECREMENT:
             return { value: state.valur + 1 }
         default:
             return state
