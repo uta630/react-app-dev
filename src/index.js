@@ -6,14 +6,14 @@ import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
-import App from './components/App';
+import EventsIndex from './components/events_index';
 
 const store = createStore(reducer);
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <App />
+      <EventsIndex />
     </React.StrictMode>
   </Provider>,
   document.getElementById('root')
