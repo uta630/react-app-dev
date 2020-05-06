@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux'; // apply = 適用
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import EventsIndex from './components/events_index';
 
-const store = createStore(reducer);
+// action内でactionクリエイターの代わりに、関数を返すことを可能にする(middleware)
+import thunk from 'redux-thunk';
+
+// applyMiddlewareを使ってthunkを第二引数に入れることで、actionの関数をstoreに適用できる
+const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
