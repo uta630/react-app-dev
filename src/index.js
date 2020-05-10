@@ -7,18 +7,21 @@ import { createStore, applyMiddleware } from 'redux'; // apply = 適用
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import EventsIndex from './components/events_index';
-
-// action内でactionクリエイターの代わりに、関数を返すことを可能にする(middleware)
+// import EventsNew from './components/events_new';
 import thunk from 'redux-thunk';
 
-// applyMiddlewareを使ってthunkを第二引数に入れることで、actionの関数をstoreに適用できる
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+
 const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <EventsIndex />
-    </React.StrictMode>
+    <BrowserRouter>
+      <Switch>
+        {/* <Route exact path="/events/new" component={EventsNew} /> */}
+        <Route exact path="/" component={EventsIndex} />
+      </Switch>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );
