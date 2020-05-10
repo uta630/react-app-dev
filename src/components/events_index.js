@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { readEvents } from '../actions';
 import _ from 'lodash'
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom' // リンク(画面遷移のアンカータグ)はLinkをimportする
 
 class EventsIndex extends Component {
   componentDidMount() {
@@ -38,7 +38,7 @@ class EventsIndex extends Component {
         </tbody>
       </table>
 
-      <Link to="/events/new">New Event</Link>
+      <Link to="/events/new">New Event</Link>{/* <Link />は<Router>の中にいないといけないので、親で設定してあげる */}
       </React.Fragment>
     );
   }
