@@ -29,7 +29,8 @@ class EventsNew extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props
+    // pristine : formのsubmitに対し、disabledの状態を操作してくれる(元から提供されている)
+    const { handleSubmit, pristine } = this.props
 
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -39,7 +40,7 @@ class EventsNew extends Component {
 
         <div>
           {/* submitはinputで作成する */}
-          <input type="submit" value="Submit" disabled={false} />
+          <input type="submit" value="Submit" disabled={pristine} />
 
           {/* キャンセルボタンで一覧に戻す */}
           <Link to="/">Cancel</Link>
