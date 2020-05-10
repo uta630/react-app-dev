@@ -40,6 +40,9 @@ const validate = values => {
   // エラーを設定し
   const errors = {}
 
+  if(!values.title) errors.title = "Enter a title, please."
+  if(!values.body) errors.body = "Enter a body, please."
+
   // エラーを返す
   return errors
 }
