@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form' // 入力フォームのパッケージ
 import { Link } from 'react-router-dom'
-// import { postEvents } from '../actions';
+import { postEvents } from '../actions';
 
 class EventsNew extends Component {
+  constructor(props) {
+    super(props)
+
+    this.onSubmit = this.onSubmit.bind(this)
+  }
+
   renderField(field){ // fieldには入力された値が入ってくる
     const {input, label, type, meta: { touched, error } } = field // 引数を定数としてそれぞれ宣言して使う
 
@@ -16,9 +22,17 @@ class EventsNew extends Component {
     )
   }
 
+  // 非同期処理
+  async onSubmit(values){
+    await this.props.postEvents(values)
+    this.props.history.push('/') // postEvents実行したらページを遷移
+  }
+
   render() {
+    const { handleSubmit } = this.props
+
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.onSubmit)}>
         {/* Fieldコンポーネントで入力フォームの実装ができる */}
         <div><Field label="Title" name="title" type="text" component={this.renderField} /></div>
         <div><Field label="Body" name="body" type="text" component={this.renderField} /></div>
@@ -47,9 +61,9 @@ const validate = values => {
   return errors
 }
 
-// const mapDispatchToProps = ({ postEvents })
+const mapDispatchToProps = ({ postEvents })
 
-export default connect(null, null)( // eventのstateは扱わないのでnull, postEventsはあとで実装するので一旦null
+export default connect(null, mapDispatchToProps)( // eventのstateは扱わないのでnull, postEventsはあとで実装するので一旦null
   // コンポーネントに対してreduxFormを設定しないとFieldコンポーネントは使えない
   // なので、ここでコンポーネントに対して、reduxForm関数を設定する(デコレート)
   // reduxFormの引数にはフォームで使用する設定をオブジェクトの形で入れられる
