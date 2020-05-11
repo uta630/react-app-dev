@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom'
-import { getEvents, deleteEvent, putEvent } from '../actions';
+import { getEvent, deleteEvent, putEvent } from '../actions';
 
 class EventsShow extends Component {
   constructor(props) {
@@ -10,6 +10,11 @@ class EventsShow extends Component {
 
     this.onDeleteClick = this.onDeleteClick.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+  }
+
+  componentDidMount() {
+    const { id } = this.props.match.params
+    if(id) this.props.getEvent(id)
   }
 
   renderField(field){
@@ -61,8 +66,13 @@ const validate = values => {
   return errors
 }
 
-const mapDispatchToProps = ({ deleteEvent })
+const mapStateToProps = (state, ownProps) => {
+  const event = state.events[ownProps.match.params.id]
+  return { initialValues: event, event }
+}
+const mapDispatchToProps = ({ deleteEvent, getEvent })
 
-export default connect(null, mapDispatchToProps)(
-  reduxForm({ validate, form: 'eventShowForm' })(EventsShow)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  // enableReinitialize: trueにすると、initialValuesの値が変わるたびにフォームが初期化される
+  reduxForm({ validate, form: 'eventShowForm', enableReinitialize: true })(EventsShow)
 )
