@@ -44,7 +44,7 @@ class EventsIndex extends Component {
           <ContentAdd />
         </FloatingActionButton>
 
-        <table>
+        <Table>
           {/* displaySelectAll : tableの全選択ボタンの表示可否 */}
           {/* adjustForCheckbox: 全選択ボタン非表示分のレイアウトのズレを調整 */}
           <TableHeader displaySelectAll={false} adjustForCheckbox={false} >
@@ -59,7 +59,7 @@ class EventsIndex extends Component {
           <TableBody displayRowCheckbox={false}>
             {this.renderEvents()}
           </TableBody>
-        </table>
+        </Table>
         
       </React.Fragment>
     );
