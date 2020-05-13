@@ -1,3 +1,7 @@
+/* eslint-disable import/first */
+// 上記はMuiThemeProviderのeslintエラー回避用
+// 回避できれば特段問題なく機能する
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -16,19 +20,23 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 const enhancer = process.env.NODE_ENV === 'development' ? composeWithDevTools(applyMiddleware(thunk)) : applyMiddleware(thunk)
 const store = createStore(reducer, enhancer);
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <Switch>
-        <Route path="/events/new" component={EventsNew} />
-        {/* :id : :xxxでxxxをパラメータとしたpathを設定できる */}
-        <Route path="/events/:id" component={EventsShow} />
-        {/* exact : 完全一致 */}
-        <Route exact path="/" component={EventsIndex} />
-        <Route exact path="/events" component={EventsIndex} />
-      </Switch>
-    </BrowserRouter>
-  </Provider>,
+  <MuiThemeProvider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/events/new" component={EventsNew} />
+          {/* :id : :xxxでxxxをパラメータとしたpathを設定できる */}
+          <Route path="/events/:id" component={EventsShow} />
+          {/* exact : 完全一致 */}
+          <Route exact path="/" component={EventsIndex} />
+          <Route exact path="/events" component={EventsIndex} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('root')
 );
 
